@@ -42,6 +42,10 @@ jobs:
         if: ${{ steps.filter.outputs.py_modified == 'true' }}
         run: flake8 ${{ steps.filter.outputs.py_modified_files }}
 
+      - name: Run black
+        if: ${{ steps.filter.outputs.py_modified == 'true' }}
+        run: black ${{ steps.filter.outputs.py_modified_files }} --check
+
       - name: Run behave
         if: ${{ steps.filter.outputs.py_modified == 'true' }}
         run: behave
