@@ -9,6 +9,7 @@ python = "^3.10"
 pytest = "^7.1.2"
 pytest-bdd = "^5.0.0"
 behave = "^1.2.6"
+flake8 = "^4.0.1"
 
 [tool.poetry.dev-dependencies]
 
