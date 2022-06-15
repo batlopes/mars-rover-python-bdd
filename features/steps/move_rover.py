@@ -24,7 +24,7 @@ def step_impl(context):
 
 
 @then("the rover is at position ({final_x:Number}, {final_y:Number})")
-def step_impl(context, final_x, final_y):
+def step_impl(context, final_x: int, final_y: int):
     assert context.rover.position_x == final_x
     assert context.rover.position_y == final_y
 

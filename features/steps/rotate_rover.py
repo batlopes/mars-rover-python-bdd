@@ -4,13 +4,13 @@ from src.Plateau import Plateau
 
 
 @given("a Rover instance with direction '{direction}'")
-def step_impl(context, direction):
+def step_impl(context, direction: str):
     plateau = Plateau(5, 5)
     context.rover = Rover(1, 1, direction, plateau)
 
 
 @when("receive a '{rotate_direction}' navigate instruction")
-def step_impl(context, rotate_direction):
+def step_impl(context, rotate_direction: str):
     context.rover.navigate(rotate_direction)
 
 
