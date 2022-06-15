@@ -1,36 +1,21 @@
-from behave import given, when, then
+from behave import given, when, then, register_type
+import parse
 from src.Rover import Rover
 from src.Plateau import Plateau
 
 
-@given("the rover is at position (2, 2) and facing 'N'")
-def step_impl(context):
+@parse.with_pattern(r"\d+")
+def parse_number(text):
+    return int(text)
+
+
+register_type(Number=parse_number)
+
+
+@given("the rover is at position ({initial_x:Number}, {initial_y:Number}) and facing '{direction}'")
+def step_impl(context, initial_x: int, initial_y: int, direction: str):
     plateau = Plateau(4, 4)
-    context.rover = Rover(2, 2, 'N', plateau)
-
-
-@given("the rover is at position (2, 2) and facing 'E'")
-def step_impl(context):
-    plateau = Plateau(4, 4)
-    context.rover = Rover(2, 2, 'E', plateau)
-
-
-@given("the rover is at position (2, 2) and facing 'S'")
-def step_impl(context):
-    plateau = Plateau(4, 4)
-    context.rover = Rover(2, 2, 'S', plateau)
-
-
-@given("the rover is at position (0, 0) and facing 'S'")
-def step_impl(context):
-    plateau = Plateau(4, 4)
-    context.rover = Rover(0, 0, 'S', plateau)
-
-
-@given("the rover is at position (2, 2) and facing 'W'")
-def step_impl(context):
-    plateau = Plateau(4, 4)
-    context.rover = Rover(2, 2, 'W', plateau)
+    context.rover = Rover(initial_x, initial_y, direction, plateau)
 
 
 @when("the rover moves forward one step")
@@ -38,31 +23,8 @@ def step_impl(context):
     context.rover.navigate('M')
 
 
-@then("the rover is at position (2, 3)")
-def step_impl(context):
-    assert context.rover.position_x == 2
-    assert context.rover.position_y == 3
+@then("the rover is at position ({final_x:Number}, {final_y:Number})")
+def step_impl(context, final_x, final_y):
+    assert context.rover.position_x == final_x
+    assert context.rover.position_y == final_y
 
-
-@then("the rover is at position (3, 2)")
-def step_impl(context):
-    assert context.rover.position_x == 3
-    assert context.rover.position_y == 2
-
-
-@then("the rover is at position (2, 1)")
-def step_impl(context):
-    assert context.rover.position_x == 2
-    assert context.rover.position_y == 1
-
-
-@then("the rover is at position (1, 2)")
-def step_impl(context):
-    assert context.rover.position_x == 1
-    assert context.rover.position_y == 2
-
-
-@then("the rover is at position (0, 0)")
-def step_impl(context):
-    assert context.rover.position_x == 0
-    assert context.rover.position_y == 0
